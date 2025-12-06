@@ -1,13 +1,34 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // 💡 IMPORTAMOS HOOKS PARA EL SCROLL
 import { LinearLogo } from '../constants';
 
 const Header: React.FC = () => {
+  // 💡 AÑADIMOS EL ESTADO PARA CONTROLAR EL SCROLL
+  const [scrolled, setScrolled] = useState(false);
+
+  // 💡 LÓGICA DEL SCROLL (Tarea 3.5)
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 5); // 5px es suficiente para detectar scroll
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const navLinks = ['Product', 'Resources', 'Pricing', 'Customers', 'Now', 'Contact'];
 
+  // 💡 CLASES CONDICIONALES: Añadimos un borde inferior si 'scrolled' es true
+  const headerClasses = `sticky top-0 z-50 py-3 transition-all duration-300 ${
+    // 💡 CAMBIO 1: Fondo Sólido Ultra Oscuro. Quitamos el blur y la transparencia.
+    scrolled ? 'bg-[#0B0B0F] border-b border-white/10' : 'bg-[#0B0B0F]' 
+  }`;
+
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0B0B0F]/80">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    // Aplicamos las clases condicionales
+    <header className={headerClasses}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-1.5"> {/* Ajustamos el py a 1.5 para hacerlo más compacto */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">
             <LinearLogo className="h-6 w-auto" />
@@ -25,7 +46,8 @@ const Header: React.FC = () => {
             </a>
             <a
               href="#"
-              className="px-4 py-1.5 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition-colors"
+              // 💡 CAMBIO 2: Estilo Secundario: Borde sutil, transparente, texto blanco.
+              className="px-4 py-1.5 border border-white/10 rounded-md bg-transparent text-white font-medium hover:bg-white/5 transition-colors"
             >
               Sign up
             </a>

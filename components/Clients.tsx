@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { OpenAILogo, CashAppLogo, ScaleLogo, RampLogo, VercelLogo, CoinbaseLogo, BoomLogo, CursorLogo } from '../constants';
 
@@ -15,20 +14,22 @@ const Clients: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 text-center">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Powering the world’s best product teams.
-        </h2>
-        <p className="mt-4 text-lg text-gray-400">
-          From next-gen startups to established enterprises.
-        </p>
-        <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 items-center">
+    <section className="py-16 md:py-24 border-y border-white/10 my-16"> {/* 💡 Añadimos borde superior/inferior para separarlo */}
+      <div className="max-w-6xl mx-auto px-4">
+        
+        {/* 💡 Título discreto de credibilidad */}
+        <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-500 text-center mb-12">
+          Trusted by the world’s best product teams.
+        </h3>
+        
+        {/* 💡 Diseño basado en Flex para alineación central de logos, con opacidad sutil */}
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-10 opacity-70">
           {logos.map((logo, index) => {
             const LogoComponent = logo.component;
             return (
-              <div key={index} className="flex justify-center">
-                <LogoComponent className="h-8 w-auto text-gray-400 hover:text-white transition-colors" />
+              <div key={index} className="flex justify-center transition-opacity hover:opacity-100">
+                {/* 💡 Aseguramos que el color sea blanco/gris claro para el modo oscuro */}
+                <LogoComponent className="h-7 w-auto text-gray-400 hover:text-white transition-colors" />
               </div>
             );
           })}
