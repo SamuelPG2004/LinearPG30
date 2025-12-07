@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ProductMegaMenu from './ProductMegaMenu';
 import FeaturesMegaMenu from './FeaturesMegaMenu';
-import BlogMegaMenu from './BlogMegaMenu'; // Importamos el nuevo menú
+import BlogMegaMenu from './BlogMegaMenu';
+import IntegrationsMegaMenu from './IntegrationsMegaMenu';
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -52,28 +53,21 @@ const Header: React.FC = () => {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-8">
-              <a href="#/" className="text-xl font-bold">LinearPG30</a>
+              <Link to="/" onClick={closeMenu} className="text-xl font-bold">Linear Style</Link>
               <nav className="hidden md:flex items-center space-x-1 text-sm font-medium text-gray-300">
+                {/* Lógica de renderizado de enlaces simplificada */}
                 {navLinks.map((link) => {
                   const menuName = link.toLowerCase();
-                  // Ahora 'Blog' también abre un menú
-                  if (['Product', 'Features', 'Blog'].includes(link)) {
-                    return (
-                      <div key={link} className="relative">
-                        <a 
-                          href="#" 
-                          onClick={(e) => handleMenuToggle(e, menuName)}
-                          className={`px-3 py-2 rounded-md hover:text-white transition-colors cursor-pointer ${openMenu === menuName ? 'text-white bg-white/10' : ''}`}
-                        >
-                          {link}
-                        </a>
-                      </div>
-                    );
-                  }
                   return (
-                    <Link key={link} to={`/${link.toLowerCase()}`} className="px-3 py-2 rounded-md hover:text-white transition-colors">
-                      {link}
-                    </Link>
+                    <div key={link} className="relative">
+                      <a 
+                        href="#" 
+                        onClick={(e) => handleMenuToggle(e, menuName)}
+                        className={`px-3 py-2 rounded-md hover:text-white transition-colors cursor-pointer ${openMenu === menuName ? 'text-white bg-slate-700' : ''}`}
+                      >
+                        {link}
+                      </a>
+                    </div>
                   );
                 })}
               </nav>
@@ -99,9 +93,11 @@ const Header: React.FC = () => {
               </button>
             </div>
           </div>
+          
           {/* Renderizado condicional de todos los menús */}
           {openMenu === 'product' && <ProductMegaMenu closeMenu={closeMenu} />}
           {openMenu === 'features' && <FeaturesMegaMenu closeMenu={closeMenu} />}
+          {openMenu === 'integrations' && <IntegrationsMegaMenu closeMenu={closeMenu} />}
           {openMenu === 'blog' && <BlogMegaMenu closeMenu={closeMenu} />}
         </div>
       </header>
